@@ -39,7 +39,7 @@ jobs:
 
       # 5. Run YOUR optimizer (reusable GitHub Action)
       - name: Run CI Optimizer (Test Pruner)
-        uses: akshaya209/AI-powered-carbon-aware-ci-cd-pipeline-optimiser@v1
+        uses: akshaya209/ci-cd-optimiser@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 

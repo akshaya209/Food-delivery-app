@@ -1,5 +1,11 @@
 def create_order(user, items):
-    return {"user": user, "items": items}
+    if not items:
+        raise ValueError("Empty order")
+    return {
+        "user": user,
+        "items": items,
+        "status": "created"   # FIXED
+    }
 
 def cancel_order(order):
     return "cancelled"

@@ -1,5 +1,6 @@
 def calculate_total(items):
-    return sum(items)
+    # FIX: handle dict input
+    return sum(item["price"] for item in items)
 
 def apply_discount(total):
     return total * 0.9

@@ -1,5 +1,7 @@
 def estimate_time(distance):
-    return distance * 2
+    if distance < 0:
+        raise ValueError("Invalid distance")
+    return distance * 5   # FIXED
 
 def assign_driver(order):
     return "driver_assigned"

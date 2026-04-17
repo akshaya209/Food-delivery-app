@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # REQUIRED for your pruner
+          fetch-depth: 0
 
       # 2. Setup Python
       - name: Set up Python
@@ -34,22 +34,33 @@ jobs:
           pip install pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 4. Run your CI Optimizer (IMPORTANT)
+      # 🔥 4. FIX: Make app/ importable
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)" >> $GITHUB_ENV
+
+      # (Optional but useful)
+      - name: Debug Python path
+        run: python -c "import sys; print(sys.path)"
+
+      # 5. Run your CI Optimizer
       - name: Run GreenOps CI Optimizer
         id: optimizer
         uses: akshaya209/ci-cd-optimiser@v1
+        continue-on-error: true   # IMPORTANT
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 5. Run selected tests from optimizer output
+      # 6. Run selected tests (only if optimizer worked)
       - name: Run selected tests
+        if: steps.optimizer.outcome == 'success'
         run: |
           echo "Running selected tests..."
+          echo "${{ steps.optimizer.outputs.test_command }}"
           ${{ steps.optimizer.outputs.test_command }}
 
-      # 6. Fallback (if optimizer fails)
+      # 7. Fallback (if optimizer fails OR outputs missing)
       - name: Fallback to full test suite
-        if: failure()
+        if: steps.optimizer.outcome != 'success'
         run: |
           echo "Optimizer failed → running full test suite"
           pytest

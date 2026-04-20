@@ -21,7 +21,7 @@ TEMPLATES = {
     "order_out_for_delivery": "Your order #{order_id} is on the way!",
     "order_delivered":        "Order #{order_id} delivered. Enjoy your meal!",
     "order_cancelled":        "Order #{order_id} has been cancelled.",
-    "payment_success":        "Payment of ₹{amount} received for order #{payment_id}",
+    "payment_success":        "payment_success": "Payment of ₹{amount} received successfully.",
     "payment_failed":         "Payment failed. Please retry.",
     "refund_initiated":       "Refund of ₹{amount} initiated. ID: {refund_id}",
     "loyalty_earned":         "You earned {points} points! Total: {new_total}",

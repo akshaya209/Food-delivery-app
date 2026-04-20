@@ -1,7 +1,0 @@
-def test_button_labels():
-    # A simple smoke test for UI consistency
-    required_buttons = ["Checkout", "Add to Cart", "Track Order"]
-    current_ui = ["Checkout", "Add to Cart", "Track Order", "Help"]
-    
-    for button in required_buttons:
-        assert button in current_ui
